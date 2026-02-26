@@ -153,15 +153,11 @@ button:hover {
 
 .cover-logo {
   position: absolute;
-  top: 1.2rem;
-  right: 1.2rem;
-  width: clamp(120px, 18vw, 240px);
-  max-height: 120px;
+  top: 1.25rem;
+  right: 1.25rem;
+  width: clamp(150px, 21vw, 340px);
+  max-height: 130px;
   object-fit: contain;
-  padding: 0.5rem;
-  border-radius: 14px;
-  background: rgba(255, 255, 255, 0.75);
-  box-shadow: 0 8px 24px rgba(17, 24, 39, 0.15);
 }
 
 .cover-shell {
@@ -169,20 +165,13 @@ button:hover {
 }
 
 .cover-card {
+  position: relative;
   background: rgba(255, 255, 255, 0.88);
   border: 1px solid #cfd8e6;
   border-radius: 22px;
   padding: clamp(1.2rem, 4vw, 3rem);
+  padding-right: clamp(10rem, 25vw, 24rem);
   box-shadow: 0 18px 44px rgba(12, 40, 82, 0.15);
-}
-
-.cover-kicker {
-  text-transform: uppercase;
-  letter-spacing: 0.08em;
-  font-size: 0.8rem;
-  color: #1d4d8f;
-  font-weight: 700;
-  margin: 0 0 0.6rem;
 }
 
 .cover-card h1 {
@@ -212,6 +201,19 @@ button:hover {
 
 .cover-cta:hover {
   filter: brightness(1.05);
+}
+
+@media (max-width: 900px) {
+  .cover-card {
+    padding-right: clamp(1.2rem, 4vw, 3rem);
+    padding-top: clamp(6.5rem, 18vw, 9rem);
+  }
+
+  .cover-logo {
+    right: 1rem;
+    top: 0.9rem;
+    width: clamp(130px, 42vw, 260px);
+  }
 }
 
 .back-home {

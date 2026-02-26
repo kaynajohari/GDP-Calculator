@@ -3,90 +3,21 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>GDP Calculator</title>
+  <title>GDP Calculator Home</title>
   <link rel="stylesheet" href="styles.css">
 </head>
-<body>
-  <main class="container">
-    <header>
+<body class="cover-page">
+  <img src="logo.png" alt="School logo" class="cover-logo">
+
+  <main class="cover-shell">
+    <section class="cover-card">
+      <p class="cover-kicker">Economics Project</p>
       <h1>GDP Calculator</h1>
-      <p>Estimate Gross Domestic Product using the expenditure, income, and product methods.</p>
-    </header>
-
-    <section class="card">
-      <h2>1) Expenditure Method</h2>
-      <p class="formula">GDP = C + I + G + (X - M)</p>
-      <div class="grid">
-        <label>Consumption (C)
-          <input type="number" step="any" id="exp-c" placeholder="0">
-        </label>
-        <label>Investment (I)
-          <input type="number" step="any" id="exp-i" placeholder="0">
-        </label>
-        <label>Government Spending (G)
-          <input type="number" step="any" id="exp-g" placeholder="0">
-        </label>
-        <label>Exports (X)
-          <input type="number" step="any" id="exp-x" placeholder="0">
-        </label>
-        <label>Imports (M)
-          <input type="number" step="any" id="exp-m" placeholder="0">
-        </label>
-      </div>
-      <button id="btn-expenditure">Calculate Expenditure GDP</button>
-      <p class="error" id="error-expenditure"></p>
-      <p class="result" id="result-expenditure">Result: -</p>
-    </section>
-
-    <section class="card">
-      <h2>2) Income Method</h2>
-      <p class="formula">GDP = Wages + Rent + Interest + Profits + (Taxes - Subsidies) + Depreciation</p>
-      <div class="grid">
-        <label>Wages and Salaries
-          <input type="number" step="any" id="inc-wages" placeholder="0">
-        </label>
-        <label>Rent
-          <input type="number" step="any" id="inc-rent" placeholder="0">
-        </label>
-        <label>Interest
-          <input type="number" step="any" id="inc-interest" placeholder="0">
-        </label>
-        <label>Profits
-          <input type="number" step="any" id="inc-profits" placeholder="0">
-        </label>
-        <label>Taxes
-          <input type="number" step="any" id="inc-taxes" placeholder="0">
-        </label>
-        <label>Subsidies
-          <input type="number" step="any" id="inc-subsidies" placeholder="0">
-        </label>
-        <label>Depreciation
-          <input type="number" step="any" id="inc-depreciation" placeholder="0">
-        </label>
-      </div>
-      <button id="btn-income">Calculate Income GDP</button>
-      <p class="error" id="error-income"></p>
-      <p class="result" id="result-income">Result: -</p>
-    </section>
-
-    <section class="card">
-      <h2>3) Product (Value-Added) Method</h2>
-      <p class="formula">GDP = Sum of (Output - Intermediate Consumption) for all sectors</p>
-      <div id="sector-rows" class="sector-rows"></div>
-      <div class="actions">
-        <button type="button" id="btn-add-sector">Add Sector</button>
-        <button type="button" id="btn-product">Calculate Product GDP</button>
-      </div>
-      <p class="error" id="error-product"></p>
-      <p class="result" id="result-product">Result: -</p>
-    </section>
-
-    <section class="card summary">
-      <h2>Comparison</h2>
-      <p id="comparison-text">Calculate at least one method to see results.</p>
+      <p class="cover-copy">
+        Explore GDP through expenditure, income, and product methods in one interactive tool.
+      </p>
+      <a class="cover-cta" href="calculator.html">Open Calculator</a>
     </section>
   </main>
-
-  <script src="script.js?v=2"></script>
 </body>
 </html>

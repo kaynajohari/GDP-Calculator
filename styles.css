@@ -124,6 +124,13 @@ button:hover {
   color: #0f172a;
 }
 
+.error {
+  margin-top: 0.6rem;
+  min-height: 1.2rem;
+  font-weight: 600;
+  color: #b91c1c;
+}
+
 .summary p {
   margin: 0.3rem 0 0;
 }

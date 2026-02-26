@@ -14,6 +14,26 @@ function setResult(id, label, value) {
   document.getElementById(id).textContent = `${label}: ${formatCurrencyLike(value)}`;
 }
 
+function setError(id, message) {
+  document.getElementById(id).textContent = message;
+}
+
+function anyNegative(elements) {
+  return elements.some((element) => {
+    const value = element.value.trim();
+    return value !== "" && toNumber(value) < 0;
+  });
+}
+
+function validateSection(errorId, elements) {
+  if (anyNegative(elements)) {
+    setError(errorId, "Negative values are not allowed.");
+    return false;
+  }
+  setError(errorId, "");
+  return true;
+}
+
 function updateComparison() {
   const expText = document.getElementById("result-expenditure").textContent;
   const incText = document.getElementById("result-income").textContent;
@@ -30,11 +50,22 @@ function updateComparison() {
 }
 
 document.getElementById("btn-expenditure").addEventListener("click", () => {
-  const c = toNumber(document.getElementById("exp-c").value);
-  const i = toNumber(document.getElementById("exp-i").value);
-  const g = toNumber(document.getElementById("exp-g").value);
-  const x = toNumber(document.getElementById("exp-x").value);
-  const m = toNumber(document.getElementById("exp-m").value);
+  const fields = [
+    document.getElementById("exp-c"),
+    document.getElementById("exp-i"),
+    document.getElementById("exp-g"),
+    document.getElementById("exp-x"),
+    document.getElementById("exp-m")
+  ];
+  if (!validateSection("error-expenditure", fields)) {
+    return;
+  }
+
+  const c = toNumber(fields[0].value);
+  const i = toNumber(fields[1].value);
+  const g = toNumber(fields[2].value);
+  const x = toNumber(fields[3].value);
+  const m = toNumber(fields[4].value);
   const gdp = c + i + g + (x - m);
 
   setResult("result-expenditure", "Expenditure GDP", gdp);
@@ -42,13 +73,26 @@ document.getElementById("btn-expenditure").addEventListener("click", () => {
 });
 
 document.getElementById("btn-income").addEventListener("click", () => {
-  const wages = toNumber(document.getElementById("inc-wages").value);
-  const rent = toNumber(document.getElementById("inc-rent").value);
-  const interest = toNumber(document.getElementById("inc-interest").value);
-  const profits = toNumber(document.getElementById("inc-profits").value);
-  const taxes = toNumber(document.getElementById("inc-taxes").value);
-  const subsidies = toNumber(document.getElementById("inc-subsidies").value);
-  const depreciation = toNumber(document.getElementById("inc-depreciation").value);
+  const fields = [
+    document.getElementById("inc-wages"),
+    document.getElementById("inc-rent"),
+    document.getElementById("inc-interest"),
+    document.getElementById("inc-profits"),
+    document.getElementById("inc-taxes"),
+    document.getElementById("inc-subsidies"),
+    document.getElementById("inc-depreciation")
+  ];
+  if (!validateSection("error-income", fields)) {
+    return;
+  }
+
+  const wages = toNumber(fields[0].value);
+  const rent = toNumber(fields[1].value);
+  const interest = toNumber(fields[2].value);
+  const profits = toNumber(fields[3].value);
+  const taxes = toNumber(fields[4].value);
+  const subsidies = toNumber(fields[5].value);
+  const depreciation = toNumber(fields[6].value);
   const gdp = wages + rent + interest + profits + (taxes - subsidies) + depreciation;
 
   setResult("result-income", "Income GDP", gdp);
@@ -90,6 +134,14 @@ document.getElementById("btn-add-sector").addEventListener("click", addSectorRow
 
 document.getElementById("btn-product").addEventListener("click", () => {
   const rows = Array.from(sectorRowsEl.querySelectorAll(".sector-row"));
+  const productFields = rows.flatMap((row) => [
+    row.querySelector(".sector-output"),
+    row.querySelector(".sector-intermediate")
+  ]);
+  if (!validateSection("error-product", productFields)) {
+    return;
+  }
+
   const totalValueAdded = rows.reduce((sum, row) => {
     const output = toNumber(row.querySelector(".sector-output").value);
     const intermediate = toNumber(row.querySelector(".sector-intermediate").value);
@@ -101,3 +153,28 @@ document.getElementById("btn-product").addEventListener("click", () => {
 });
 
 addSectorRow();
+
+const expenditureFields = ["exp-c", "exp-i", "exp-g", "exp-x", "exp-m"].map((id) =>
+  document.getElementById(id)
+);
+expenditureFields.forEach((field) => {
+  field.addEventListener("input", () => validateSection("error-expenditure", expenditureFields));
+});
+
+const incomeFields = [
+  "inc-wages",
+  "inc-rent",
+  "inc-interest",
+  "inc-profits",
+  "inc-taxes",
+  "inc-subsidies",
+  "inc-depreciation"
+].map((id) => document.getElementById(id));
+incomeFields.forEach((field) => {
+  field.addEventListener("input", () => validateSection("error-income", incomeFields));
+});
+
+sectorRowsEl.addEventListener("input", () => {
+  const productFields = Array.from(sectorRowsEl.querySelectorAll(".sector-output, .sector-intermediate"));
+  validateSection("error-product", productFields);
+});
